@@ -34,6 +34,12 @@ public class StardewVally
         set { _number = value; }
     }
 
+    public bool IsAwake { get; private set; }
+    public void Awake()
+    {
+        IsAwake = true;
+    }
+
     public StardewVally(string name)
     {
         Name = name;
