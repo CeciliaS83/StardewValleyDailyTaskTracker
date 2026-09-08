@@ -1,8 +1,8 @@
 ﻿var registry = new Registry();
 
-registry.Add(new StardewVally("the first one"));
-registry.Add(new StardewVally("the second one"));
-registry.Add(new StardewVally("the third one"));
+registry.Add(new StardewVally("chop down trees"));
+registry.Add(new StardewVally("go mining"));
+registry.Add(new StardewVally("grow the farm"));
 
 Console.WriteLine(Registry.Topic);
 Console.WriteLine($"{registry.Count} on file.");

@@ -2,7 +2,6 @@ public class Registry
 {
     private readonly List<StardewVally> _items = new List<StardewVally>();
 
-    // TODO — Task 1. Say what your project is about, in words.
     public static string Topic => "A list of the main action you complete each day in Stardew Valley";     // ← yours
 
     public StardewVally NewItem(string name) => new StardewVally(name);
