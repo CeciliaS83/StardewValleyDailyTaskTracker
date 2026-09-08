@@ -1,21 +1,20 @@
 public class Registry
 {
-    private readonly List<StardewVally> _items = new List<StardewVally>();
+    private readonly List<StardewVally> _tasks = new List<StardewVally>();
 
-    public static string Topic => "A list of the main action you complete each day in Stardew Valley";     // ← yours
+    public static string Topic => "A list of the main action you complete each day in Stardew Valley";
 
     public StardewVally NewItem(string name) => new StardewVally(name);
 
-    public void Add(StardewVally item)
+    public void Add(StardewVally task)
     {
-        _items.Add(item);
+        _tasks.Add(task);
     }
 
-    public int Count => _items.Count;
+    public int Count => _tasks.Count;
 
     public List<StardewVally> All()
     {
-        // TODO — Task 5. Hand back a COPY, never the list itself.
-        return _items;                                   // ← yours
+        return new List<StardewVally>(_tasks);
     }
 }
