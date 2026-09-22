@@ -23,3 +23,9 @@ Console.WriteLine(known == null ? "Nothing on file by that name." : "Found it.")
 
 StardewVally? missing = registry.Find("something I never added");
 Console.WriteLine(missing == null ? "Nothing on file by that name." : "...found something that shouldn't be there.");
+
+Console.WriteLine();
+Console.WriteLine(registry.Remove("go mining")
+    ? "Removed."
+    : "Nothing by that name.");
+Console.WriteLine($"{registry.Count} on file.");

@@ -30,4 +30,18 @@ public class Registry
     
     return null;
     }
+
+    // inside the same Registry class, under Find
+    public bool Remove(string name)
+    {
+        StardewVally? found = Find(name);
+
+        if (found == null)
+        {
+            return false;
+        }
+
+        _tasks.Remove(found);
+        return true;
+    }
 }
