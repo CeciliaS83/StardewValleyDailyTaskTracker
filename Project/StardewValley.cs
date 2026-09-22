@@ -1,4 +1,4 @@
-public class StardewVally
+public class StardewValley
 {
     private string _name = "unknown";
     public string Name
@@ -31,13 +31,13 @@ public class StardewVally
         set { _number = value; }
     }
 
-    public bool IsAwake { get; private set; }
-    public void Awake()
+    public int TimesCompleted { get; private set; }
+    public void Completed()
     {
-        IsAwake = true;
+        TimesCompleted++;
     }
 
-    public StardewVally(string name)
+    public StardewValley(string name)
     {
         Name = name;
         Note = "";

@@ -1,26 +1,26 @@
 public class Registry
 {
-    private readonly List<StardewVally> _tasks = new List<StardewVally>();
+    private readonly List<StardewValley> _tasks = new List<StardewValley>();
 
     public static string Topic => "A list of the main action you complete each day in Stardew Valley";
 
-    public StardewVally NewItem(string name) => new StardewVally(name);
+    public StardewValley NewItem(string name) => new StardewValley(name);
 
-    public void Add(StardewVally task)
+    public void Add(StardewValley task)
     {
         _tasks.Add(task);
     }
 
     public int Count => _tasks.Count;
 
-    public List<StardewVally> All()
+    public List<StardewValley> All()
     {
-        return new List<StardewVally>(_tasks);
+        return new List<StardewValley>(_tasks);
     }
 
-    public StardewVally? Find(string name)
+    public StardewValley? Find(string name)
     {
-        foreach (StardewVally task in _tasks)
+        foreach (StardewValley task in _tasks)
         {
             if (task.Name == name)
             {
@@ -34,7 +34,7 @@ public class Registry
     // inside the same Registry class, under Find
     public bool Remove(string name)
     {
-        StardewVally? found = Find(name);
+        StardewValley? found = Find(name);
 
         if (found == null)
         {
