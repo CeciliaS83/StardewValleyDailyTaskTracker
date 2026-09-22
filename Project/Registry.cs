@@ -17,4 +17,17 @@ public class Registry
     {
         return new List<StardewVally>(_tasks);
     }
+
+    public StardewVally? Find(string name)
+    {
+        foreach (StardewVally task in _tasks)
+        {
+            if (task.Name == name)
+            {
+                return task;
+            }
+        }
+    
+    return null;
+    }
 }

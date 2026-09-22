@@ -12,3 +12,14 @@ foreach (StardewVally item in registry.All())
 {
     Console.WriteLine(item.Name);
 }
+
+Console.WriteLine();
+
+// One I know is on the registry.
+StardewVally? known = registry.Find("go mining");
+Console.WriteLine(known == null ? "Nothing on file by that name." : "Found it.");
+
+// And one nobody has ever heard of.
+
+StardewVally? missing = registry.Find("something I never added");
+Console.WriteLine(missing == null ? "Nothing on file by that name." : "...found something that shouldn't be there.");
