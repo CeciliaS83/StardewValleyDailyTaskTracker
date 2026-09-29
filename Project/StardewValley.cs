@@ -1,4 +1,4 @@
-public class StardewValley
+public class StardewValley : IListed
 {
     private string _name = "unknown";
     public string Name
@@ -42,4 +42,8 @@ public class StardewValley
         Name = name;
         Note = "";
     }
+
+    public string Kind => "Task";
+
+    public string Line() => $"{Name} - Completed {TimesCompleted} times";
 }

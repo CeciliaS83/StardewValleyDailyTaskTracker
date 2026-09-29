@@ -40,3 +40,10 @@ foreach (StardewValley item in registry.All())
     Console.WriteLine($"{item.Name}");
 }
 Console.WriteLine($"{registry.Count} on file.");
+
+Console.WriteLine();
+
+foreach (StardewValley item in registry.All())
+{
+    Console.WriteLine($"{item.Kind,-12}{item.Line()}");
+}
