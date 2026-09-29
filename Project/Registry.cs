@@ -48,4 +48,18 @@ public class Registry : IListed
     public string Kind => "Logs";
 
     public string Line() => $"{Topic} - {Count} tasks able to complete";
+
+    public List<IListed> Everything()
+    {
+        List<IListed> listing = new List<IListed>();
+
+        listing.Add(this);
+
+        foreach (StardewValley item in _tasks)
+        {
+            listing.Add(item);
+        }
+
+        return listing;
+    }
 }
