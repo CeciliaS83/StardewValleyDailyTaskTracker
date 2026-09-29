@@ -1,4 +1,4 @@
-public class Registry
+public class Registry : IListed
 {
     private readonly List<StardewValley> _tasks = new List<StardewValley>();
 
@@ -43,5 +43,23 @@ public class Registry
 
         _tasks.Remove(found);
         return true;
+    }
+
+    public string Kind => "Logs";
+
+    public string Line() => $"{Topic} - {Count} tasks able to complete";
+
+    public List<IListed> Everything()
+    {
+        List<IListed> listing = new List<IListed>();
+
+        listing.Add(this);
+
+        foreach (StardewValley item in _tasks)
+        {
+            listing.Add(item);
+        }
+
+        return listing;
     }
 }
