@@ -47,3 +47,5 @@ foreach (StardewValley item in registry.All())
 {
     Console.WriteLine($"{item.Kind,-12}{item.Line()}");
 }
+
+Console.WriteLine($"{registry.Kind,-12}{registry.Line()}");
