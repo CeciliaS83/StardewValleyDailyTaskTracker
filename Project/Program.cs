@@ -4,29 +4,14 @@ registry.Add(registry.NewItem("Farm"));
 registry.Add(registry.NewItem("Forage"));
 registry.Add(registry.NewItem("Mine"));
 
-Console.WriteLine(Registry.Topic);
-Console.WriteLine($"{registry.Count} on file.");
-Console.WriteLine();
-
-// One I know something about.
+// One I know something about. Find hands back the record the registry is
+// holding, so the change lands on the real one.
 StardewValley? known = registry.Find("Forage");
-if (known == null)
-{
-    Console.WriteLine("Nothing on file by that name.");
-}
-else
+if (known != null)
 {
     known.Completed();
-    Console.WriteLine($"{known.Name} - completed {known.TimesCompleted} times");
 }
 
-// And one nobody has ever heard of.
-StardewValley? missing = registry.Find("Monster Caving");
-Console.WriteLine(missing == null
-    ? "Nothing on file by that name."
-    : "...found something that shouldn't be there.");
-
-Console.WriteLine();
 Console.Write("Take one off the books (Enter to skip): ");
 string? name = Console.ReadLine();
 if (!string.IsNullOrWhiteSpace(name))
@@ -35,24 +20,9 @@ if (!string.IsNullOrWhiteSpace(name))
 }
 
 Console.WriteLine();
-foreach (StardewValley item in registry.All())
+
+// One loop. It knows about exactly one thing, and that thing is not a class.
+foreach (IListed StardewValley in registry.Everything())
 {
-    Console.WriteLine($"{item.Name}");
-}
-Console.WriteLine($"{registry.Count} on file.");
-
-Console.WriteLine();
-
-foreach (StardewValley item in registry.All())
-{
-    Console.WriteLine($"{item.Kind,-12}{item.Line()}");
-}
-
-Console.WriteLine($"{registry.Kind,-12}{registry.Line()}");
-
-Console.WriteLine();
-
-foreach (IListed thing in registry.Everything())
-{
-    Console.WriteLine($"{thing.Kind,-12}{thing.Line()}");
+    Console.WriteLine($"{StardewValley.Kind,-12}{StardewValley.Line()}");
 }
