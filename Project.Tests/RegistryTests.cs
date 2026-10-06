@@ -23,4 +23,16 @@ public class RegistryTests
         var found = registry.Find("Seaweed");
         Assert.Same(depot, found);
     }
+
+    [Fact]
+    public void Check4_RemovingAStrangerSaysNo()
+    {
+        var registry = new Registry();
+        registry.Add(registry.NewItem("Fish"));
+        registry.Add(registry.NewItem("Fight"));
+        Assert.Equal(2, registry.Count);
+        var depot = registry.NewItem("Seaweed");
+        Assert.False(registry.Remove("Seaweed"));
+        Assert.Equal(2, registry.Count);
+    }
 }
