@@ -4,6 +4,11 @@ registry.Add(registry.NewItem("Farm"));
 registry.Add(registry.NewItem("Forage"));
 registry.Add(registry.NewItem("Mine"));
 
+// Week 7's rule, visible: Add called twice with the same name, and the
+// second one refused. The count is the only thing that tells you.
+registry.Add(registry.NewItem("Forage"));
+Console.WriteLine($"Tried to register \"Forage\" twice - {registry.Count} on file.");
+
 // One I know something about. Find hands back the record the registry is
 // holding, so the change lands on the real one.
 StardewValley? known = registry.Find("Forage");

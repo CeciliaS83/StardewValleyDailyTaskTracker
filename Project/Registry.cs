@@ -8,6 +8,11 @@ public class Registry : IListed
 
     public void Add(StardewValley task)
     {
+        if (Find(task.Name) != null)
+        {
+            return;
+        }
+
         _tasks.Add(task);
     }
 
