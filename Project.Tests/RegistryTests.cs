@@ -10,4 +10,17 @@ public class RegistryTests
         registry.Add(registry.NewItem("Fight"));
         Assert.Equal(2, registry.Count);
     }
+
+    [Fact]
+    public void Check3_FindHandsBackTheRecordItHolds()
+    {
+        var registry = new Registry();
+        registry.Add(registry.NewItem("Fish"));
+        registry.Add(registry.NewItem("Fight"));
+        Assert.Equal(2, registry.Count);
+        var depot = registry.NewItem("Seaweed");
+        registry.Add(depot);
+        var found = registry.Find("Seaweed");
+        Assert.Same(depot, found);
+    }
 }
