@@ -77,4 +77,26 @@ public class Registry : IListed
 
         File.WriteAllText(path, json);
     }
+
+    public void Load(string path)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        List<StardewValley>? loaded = JsonSerializer.Deserialize<List<StardewValley>>(File.ReadAllText(path));
+
+        if (loaded == null)
+        {
+            return;
+        }
+
+        _tasks.Clear();
+
+        foreach (StardewValley task in loaded)
+        {
+            _tasks.Add(task);
+        }
+    }
 }
