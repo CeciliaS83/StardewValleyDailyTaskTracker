@@ -35,4 +35,13 @@ public class RegistryTests
         Assert.False(registry.Remove("Seaweed"));
         Assert.Equal(2, registry.Count);
     }
+
+    [Fact]
+    public void Check5_TheSameNameCannotRegisterTwice()
+    {
+        var registry = new Registry();
+        registry.Add(registry.NewItem("Fish"));
+        registry.Add(registry.NewItem("Fish"));
+        Assert.Equal(1, registry.Count);
+    }
 }
