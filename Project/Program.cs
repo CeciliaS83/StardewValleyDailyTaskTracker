@@ -1,5 +1,7 @@
 ﻿var registry = new Registry();
 
+string registryFile = "registry.json";
+
 registry.Add(registry.NewItem("Farm"));
 registry.Add(registry.NewItem("Forage"));
 registry.Add(registry.NewItem("Mine"));
@@ -31,3 +33,6 @@ foreach (IListed StardewValley in registry.Everything())
 {
     Console.WriteLine($"{StardewValley.Kind,-12}{StardewValley.Line()}");
 }
+
+registry.Save(registryFile);
+Console.WriteLine($"{registry.Count} on file, saved to {registryFile}.");

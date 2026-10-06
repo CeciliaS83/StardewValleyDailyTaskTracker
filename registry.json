@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "Farm",
+    "Note": "unknown",
+    "Number": 0,
+    "TimesCompleted": 0,
+    "Kind": "Task"
+  },
+  {
+    "Name": "Forage",
+    "Note": "unknown",
+    "Number": 0,
+    "TimesCompleted": 1,
+    "Kind": "Task"
+  },
+  {
+    "Name": "Mine",
+    "Note": "unknown",
+    "Number": 0,
+    "TimesCompleted": 0,
+    "Kind": "Task"
+  }
+]
