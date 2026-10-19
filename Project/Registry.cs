@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 public class Registry : IListed
 {
     private readonly List<StardewValley> _tasks = new List<StardewValley>();
@@ -66,5 +68,35 @@ public class Registry : IListed
         }
 
         return listing;
+    }
+
+    public void Save(string path)
+    {
+        string json = JsonSerializer.Serialize(_tasks,
+            new JsonSerializerOptions { WriteIndented = true });
+
+        File.WriteAllText(path, json);
+    }
+
+    public void Load(string path)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        List<StardewValley>? loaded = JsonSerializer.Deserialize<List<StardewValley>>(File.ReadAllText(path));
+
+        if (loaded == null)
+        {
+            return;
+        }
+
+        _tasks.Clear();
+
+        foreach (StardewValley task in loaded)
+        {
+            _tasks.Add(task);
+        }
     }
 }

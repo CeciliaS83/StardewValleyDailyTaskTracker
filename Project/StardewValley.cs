@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 public class StardewValley : IListed
 {
     private string _name = "unknown";
@@ -31,6 +33,7 @@ public class StardewValley : IListed
         set { _number = value; }
     }
 
+    [JsonInclude]
     public int TimesCompleted { get; private set; }
     public void Completed()
     {

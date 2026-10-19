@@ -39,9 +39,24 @@ public class RegistryTests
     [Fact]
     public void Check5_TheSameNameCannotRegisterTwice()
     {
+        string path = Path.Combine(Path.GetTempPath(), "randompath.json");
+        File.Delete(path);
+
         var registry = new Registry();
-        registry.Add(registry.NewItem("Fish"));
-        registry.Add(registry.NewItem("Fish"));
-        Assert.Equal(1, registry.Count);
+        var fish = registry.NewItem("Fish");
+        registry.Add(fish);
+        fish.Completed();
+
+        registry.Save(path);
+
+        var reopened = new Registry();
+        reopened.Load(path); 
+
+        Assert.Equal(1, reopened.Count);
+        
+        int actual = reopened.All()[0].TimesCompleted;
+        int expected = 1;
+
+        Assert.Equal(expected, actual);
     }
 }
