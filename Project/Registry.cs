@@ -27,15 +27,7 @@ public class Registry : IListed
 
     public StardewValley? Find(string name)
     {
-        foreach (StardewValley task in _tasks)
-        {
-            if (task.Name == name)
-            {
-                return task;
-            }
-        }
-    
-    return null;
+        return _tasks.FirstOrDefault(item => item.Name == name);
     }
 
     // inside the same Registry class, under Find
@@ -94,9 +86,6 @@ public class Registry : IListed
 
         _tasks.Clear();
 
-        foreach (StardewValley task in loaded)
-        {
-            _tasks.Add(task);
-        }
+        _tasks.AddRange(loaded);
     }
 }
