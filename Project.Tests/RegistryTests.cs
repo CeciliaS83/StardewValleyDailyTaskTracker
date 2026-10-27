@@ -39,6 +39,15 @@ public class RegistryTests
     [Fact]
     public void Check5_TheSameNameCannotRegisterTwice()
     {
+        var registry = new Registry();
+        registry.Add(registry.NewItem("Fish"));
+        registry.Add(registry.NewItem("Fish"));
+        Assert.Equal(1, registry.Count);
+    }
+
+    [Fact]
+    public void Week8_TheRegistrySurvivesARestart()
+    {
         string path = Path.Combine(Path.GetTempPath(), "randompath.json");
         File.Delete(path);
 
@@ -58,5 +67,16 @@ public class RegistryTests
         int expected = 1;
 
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Week9_FindComesBackEmptyHanded()
+    {
+        var registry = new Registry();
+        StardewValley task = registry.NewItem("Fish");
+        registry.Add(task);
+
+        Assert.Same(task, registry.Find("Fish"));
+        Assert.Null(registry.Find("FlyinRandomCave"));
     }
 }
