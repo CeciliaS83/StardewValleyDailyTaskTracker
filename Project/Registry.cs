@@ -98,4 +98,9 @@ public class Registry : IListed
     {
         return _tasks.Select(item => item.Name).ToList();
     }
+
+    public List<StardewValley> Sorted()
+    {
+        return _tasks.OrderBy(item => item.Name).ToList();
+    }
 }
