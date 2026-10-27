@@ -93,4 +93,9 @@ public class Registry : IListed
     {
         return _tasks.Where(item => item.Name.Contains(term)).ToList();
     }
+
+    public List<string> Names()
+    {
+        return _tasks.Select(item => item.Name).ToList();
+    }
 }
