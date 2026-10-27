@@ -88,4 +88,9 @@ public class Registry : IListed
 
         _tasks.AddRange(loaded);
     }
+
+    public List<StardewValley> Matching(string term)
+    {
+        return _tasks.Where(item => item.Name.Contains(term)).ToList();
+    }
 }
