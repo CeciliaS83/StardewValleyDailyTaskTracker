@@ -82,7 +82,7 @@ public class RegistryTests
         Assert.Null(registry.Find("FlyinRandomCave"));
     }
 
-        [Fact]
+    [Fact]
     public void Week10_ASecondSaveChangesTheRow()
     {
         DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
@@ -105,5 +105,32 @@ public class RegistryTests
 
         Assert.Equal(1, reopened.Count);
         Assert.Equal(1, reopened.Find("Farm")!.TimesCompleted);
+    }
+
+    [Fact]
+    public void Week11_ARemovedRecordStaysGone()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+        StardewValley kept = registry.NewItem("a name of yours");
+        StardewValley removed = registry.NewItem("another name of yours");
+        registry.Add(kept);
+        registry.Add(removed);
+        registry.Save(new ProjectContext(options));
+
+        ProjectContext db = new ProjectContext(options);
+        Registry nextRun = new Registry();
+        nextRun.Load(db);
+        nextRun.Remove("another name of yours");
+        nextRun.Save(db);
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(1, reopened.Count);
+        Assert.Null(reopened.Find("another name of yours"));
     }
 }

@@ -75,6 +75,14 @@ public class Registry : IListed
                 db.Task.Update(task);
             }
         }
+        
+        foreach (StardewValley row in db.Task.ToList())
+        {
+            if (!_tasks.Any(item => item.Id == row.Id))
+            {
+                db.Task.Remove(row);
+            }
+        }
 
         db.SaveChanges();
     }
