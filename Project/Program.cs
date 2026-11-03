@@ -1,6 +1,6 @@
 ﻿var registry = new Registry();
 
-string registryFile = "registry.json";
+ProjectContext db = new ProjectContext();
 
 registry.Add(registry.NewItem("Farm"));
 registry.Add(registry.NewItem("Forage"));
@@ -34,8 +34,8 @@ foreach (IListed StardewValley in registry.Everything())
     Console.WriteLine($"{StardewValley.Kind,-12}{StardewValley.Line()}");
 }
 
-registry.Save(registryFile);
-Console.WriteLine($"{registry.Count} on file, saved to {registryFile}.");
+registry.Save(db);
+Console.WriteLine($"{registry.Count} on file, saved to the database.");
 
 Console.WriteLine();
 Console.Write("Search (a word, or Enter to skip): ");

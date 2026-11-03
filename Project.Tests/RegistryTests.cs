@@ -1,4 +1,5 @@
 namespace Project.Tests;
+using Microsoft.EntityFrameworkCore;
 
 public class RegistryTests
 {
@@ -48,18 +49,19 @@ public class RegistryTests
     [Fact]
     public void Week8_TheRegistrySurvivesARestart()
     {
-        string path = Path.Combine(Path.GetTempPath(), "randompath.json");
-        File.Delete(path);
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
 
         var registry = new Registry();
         var fish = registry.NewItem("Fish");
         registry.Add(fish);
         fish.Completed();
 
-        registry.Save(path);
+        registry.Save(new ProjectContext(options));
 
         var reopened = new Registry();
-        reopened.Load(path); 
+        reopened.Load(new ProjectContext(options)); 
 
         Assert.Equal(1, reopened.Count);
         
