@@ -1,4 +1,5 @@
 namespace Project.Tests;
+using Microsoft.EntityFrameworkCore;
 
 public class RegistryTests
 {
@@ -48,18 +49,19 @@ public class RegistryTests
     [Fact]
     public void Week8_TheRegistrySurvivesARestart()
     {
-        string path = Path.Combine(Path.GetTempPath(), "randompath.json");
-        File.Delete(path);
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
 
         var registry = new Registry();
         var fish = registry.NewItem("Fish");
         registry.Add(fish);
         fish.Completed();
 
-        registry.Save(path);
+        registry.Save(new ProjectContext(options));
 
         var reopened = new Registry();
-        reopened.Load(path); 
+        reopened.Load(new ProjectContext(options)); 
 
         Assert.Equal(1, reopened.Count);
         
@@ -78,5 +80,30 @@ public class RegistryTests
 
         Assert.Same(task, registry.Find("Fish"));
         Assert.Null(registry.Find("FlyinRandomCave"));
+    }
+
+        [Fact]
+    public void Week10_ASecondSaveChangesTheRow()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+        registry.Add(registry.NewItem("Farm"));
+        registry.Save(new ProjectContext(options));
+
+        ProjectContext db = new ProjectContext(options);
+        Registry nextRun = new Registry();
+        nextRun.Load(db);
+        StardewValley item = nextRun.Find("Farm")!;
+        item.Completed();
+        nextRun.Save(db);
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(1, reopened.Count);
+        Assert.Equal(1, reopened.Find("Farm")!.TimesCompleted);
     }
 }

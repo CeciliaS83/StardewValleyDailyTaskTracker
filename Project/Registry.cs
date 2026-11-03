@@ -1,7 +1,7 @@
 using System.Text.Json;
 
 public class Registry : IListed
-{
+{    
     private readonly List<StardewValley> _tasks = new List<StardewValley>();
 
     public static string Topic => "A list of the main action you complete each day in Stardew Valley";
@@ -62,24 +62,28 @@ public class Registry : IListed
         return listing;
     }
 
-    public void Save(string path)
+    public void Save(ProjectContext db)
     {
-        string json = JsonSerializer.Serialize(_tasks,
-            new JsonSerializerOptions { WriteIndented = true });
-
-        File.WriteAllText(path, json);
-    }
-
-    public void Load(string path)
-    {
-        if (!File.Exists(path))
+        foreach (StardewValley task in _tasks)
         {
-            return;
+            if (task.Id == 0)
+            {
+                db.Task.Add(task);
+            }
+            else
+            {
+                db.Task.Update(task);
+            }
         }
 
-        List<StardewValley>? loaded = JsonSerializer.Deserialize<List<StardewValley>>(File.ReadAllText(path));
+        db.SaveChanges();
+    }
 
-        if (loaded == null)
+    public void Load(ProjectContext db)
+    {
+        List<StardewValley> loaded = db.Task.OrderBy(task => task.Id).ToList();
+
+        if (loaded.Count == 0)
         {
             return;
         }
