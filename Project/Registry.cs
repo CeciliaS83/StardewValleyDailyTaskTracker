@@ -1,7 +1,7 @@
 using System.Text.Json;
 
 public class Registry : IListed
-{
+{    
     private readonly List<StardewValley> _tasks = new List<StardewValley>();
 
     public static string Topic => "A list of the main action you complete each day in Stardew Valley";

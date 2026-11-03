@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 
 public class StardewValley : IListed
 {
+    public int Id { get; set; }
+    
     private string _name = "unknown";
     public string Name
     {
