@@ -66,7 +66,14 @@ public class Registry : IListed
     {
         foreach (StardewValley task in _tasks)
         {
-            db.Task.Add(task);
+            if (task.Id == 0)
+            {
+                db.Task.Add(task);
+            }
+            else
+            {
+                db.Task.Update(task);
+            }
         }
 
         db.SaveChanges();

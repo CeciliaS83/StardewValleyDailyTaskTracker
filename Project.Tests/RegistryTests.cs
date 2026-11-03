@@ -81,4 +81,29 @@ public class RegistryTests
         Assert.Same(task, registry.Find("Fish"));
         Assert.Null(registry.Find("FlyinRandomCave"));
     }
+
+        [Fact]
+    public void Week10_ASecondSaveChangesTheRow()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+        registry.Add(registry.NewItem("Farm"));
+        registry.Save(new ProjectContext(options));
+
+        ProjectContext db = new ProjectContext(options);
+        Registry nextRun = new Registry();
+        nextRun.Load(db);
+        StardewValley item = nextRun.Find("Farm")!;
+        item.Completed();
+        nextRun.Save(db);
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(1, reopened.Count);
+        Assert.Equal(1, reopened.Find("Farm")!.TimesCompleted);
+    }
 }
