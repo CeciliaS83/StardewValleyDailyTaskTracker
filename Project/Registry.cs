@@ -103,6 +103,11 @@ public class Registry : IListed
 
         _tasks.AddRange(loaded);
     }
+    
+    public List<string> WithDetails(ProjectContext db)
+    {
+        return db.Task.Where(item => item.Tasks.Any()).OrderBy(item => item.Name).Select(item => item.Name).ToList();
+    }
 
     public List<StardewValley> Matching(string term)
     {
