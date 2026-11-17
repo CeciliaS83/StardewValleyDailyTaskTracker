@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 public class Registry : IListed
 {    
@@ -91,7 +92,7 @@ public class Registry : IListed
 
     public void Load(ProjectContext db)
     {
-        List<StardewValley> loaded = db.Task.OrderBy(task => task.Id).ToList();
+        List<StardewValley> loaded = db.Task.Include(item => item.Tasks).OrderBy(task => task.Id).ToList();
 
         if (loaded.Count == 0)
         {
