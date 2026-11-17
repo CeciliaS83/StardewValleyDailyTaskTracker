@@ -6,6 +6,7 @@ public class ProjectContext : DbContext
 {
     [NotMapped]
     public DbSet<StardewValley> Task { get; private set; }
+    public DbSet<Task> Tasks { get; set; }
 
     public ProjectContext()
     {

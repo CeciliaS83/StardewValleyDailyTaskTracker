@@ -7,6 +7,8 @@ public class Registry : IListed
     public static string Topic => "A list of the main action you complete each day in Stardew Valley";
 
     public StardewValley NewItem(string name) => new StardewValley(name);
+    
+    public Task NewDetail(string name) => new Task(name);
 
     public void Add(StardewValley task)
     {

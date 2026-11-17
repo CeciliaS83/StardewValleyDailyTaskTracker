@@ -34,6 +34,13 @@ foreach (IListed StardewValley in registry.Everything())
     Console.WriteLine($"{StardewValley.Kind,-12}{StardewValley.Line()}");
 }
 
+StardewValley? withDetails = registry.Find("a name of yours");
+
+if (withDetails != null)
+{
+    withDetails.Tasks.Add(registry.NewDetail("a detail of yours"));
+    Console.WriteLine($"{withDetails.Tasks.Count} details on file for that record.");
+}
 registry.Save(db);
 Console.WriteLine($"{registry.Count} on file, saved to the database.");
 

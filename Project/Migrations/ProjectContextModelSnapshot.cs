@@ -46,6 +46,43 @@ namespace Project.Migrations
 
                     b.ToTable("Task");
                 });
+
+            modelBuilder.Entity("Task", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StardewValleyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TaskId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("Task", b =>
+                {
+                    b.HasOne("Task", null)
+                        .WithMany("Tasks")
+                        .HasForeignKey("TaskId");
+                });
+
+            modelBuilder.Entity("Task", b =>
+                {
+                    b.Navigation("Tasks");
+                });
 #pragma warning restore 612, 618
         }
     }
