@@ -133,4 +133,24 @@ public class RegistryTests
         Assert.Equal(1, reopened.Count);
         Assert.Null(reopened.Find("another name of yours"));
     }
+
+    [Fact]
+    public void Week12_DetailsComeBack()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+        StardewValley record = registry.NewItem("Farm");
+        record.Tasks.Add(registry.NewDetail("Mine"));
+        record.Tasks.Add(registry.NewDetail("Combat"));
+        registry.Add(record);
+        registry.Save(new ProjectContext(options));
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(2, reopened.Find("Farm")!.Tasks.Count);
+    }
 }
