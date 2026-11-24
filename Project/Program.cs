@@ -23,7 +23,7 @@ Console.Write("Take one off the books (Enter to skip): ");
 string? name = Console.ReadLine();
 if (!string.IsNullOrWhiteSpace(name))
 {
-    Console.WriteLine(registry.Remove(name) ? "Removed." : "Nothing by that name.");
+    RegistryDesk.Remove(registry);
 }
 
 Console.WriteLine();
