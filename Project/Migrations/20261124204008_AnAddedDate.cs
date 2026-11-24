@@ -1,15 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Project.Migrations
 {
     /// <inheritdoc />
-    public partial class ASecondTable : Migration
+    public partial class AnAddedDate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<DateTime>(
+                name: "Added",
+                table: "Task",
+                type: "datetime2",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Tasks",
                 columns: table => new
@@ -41,6 +48,10 @@ namespace Project.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Tasks");
+
+            migrationBuilder.DropColumn(
+                name: "Added",
+                table: "Task");
         }
     }
 }
