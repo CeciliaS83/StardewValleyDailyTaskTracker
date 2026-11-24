@@ -9,7 +9,7 @@ public class Registry : IListed
 
     public StardewValley NewItem(string name) => new StardewValley(name);
     
-    public Task NewDetail(string name) => new Task(name);
+    public Tasks NewDetail(string name) => new Tasks(name);
 
     public void Add(StardewValley task)
     {
@@ -67,15 +67,15 @@ public class Registry : IListed
 
     public void Save(ProjectContext db)
     {
-        foreach (StardewValley task in _tasks)
+        foreach (StardewValley tasks in _tasks)
         {
-            if (task.Id == 0)
+            if (tasks.Id == 0)
             {
-                db.Task.Add(task);
+                db.Task.Add(tasks);
             }
             else
             {
-                db.Task.Update(task);
+                db.Task.Update(tasks);
             }
         }
         

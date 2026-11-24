@@ -1,4 +1,4 @@
-public class Task
+public class Tasks
 {
     public int Id { get; set; }
 
@@ -6,7 +6,7 @@ public class Task
 
     public string Name { get; private set; }
 
-    public Task(string name)
+    public Tasks(string name)
     {
         Name = name;
     }
