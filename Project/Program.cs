@@ -41,6 +41,7 @@ if (withDetails != null)
     withDetails.Tasks.Add(registry.NewDetail("a detail of yours"));
     Console.WriteLine($"{withDetails.Tasks.Count} details on file for that record.");
 }
+RegistryDesk.Import(registry);
 registry.Save(db);
 Console.WriteLine($"With details: {string.Join(", ", registry.WithDetails(db))}");
 Console.WriteLine($"{registry.Count} on file, saved to the database.");
