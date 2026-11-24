@@ -47,7 +47,7 @@ namespace Project.Migrations
                     b.ToTable("Task");
                 });
 
-            modelBuilder.Entity("Task", b =>
+            modelBuilder.Entity("Tasks", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,24 +62,23 @@ namespace Project.Migrations
                     b.Property<int>("StardewValleyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TaskId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("TaskId");
+                    b.HasIndex("StardewValleyId");
 
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("Task", b =>
+            modelBuilder.Entity("Tasks", b =>
                 {
-                    b.HasOne("Task", null)
+                    b.HasOne("StardewValley", null)
                         .WithMany("Tasks")
-                        .HasForeignKey("TaskId");
+                        .HasForeignKey("StardewValleyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Task", b =>
+            modelBuilder.Entity("StardewValley", b =>
                 {
                     b.Navigation("Tasks");
                 });

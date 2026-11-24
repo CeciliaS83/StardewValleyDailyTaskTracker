@@ -48,9 +48,9 @@ public class StardewValley : IListed
         Note = "";
     }
 
-    public string Kind => "Task";
+    public string Kind => "Tasks";
 
     public string Line() => $"{Name} - Completed {TimesCompleted} times";
 
-    public List<Task> Tasks { get; private set; } = new List<Task>();
+    public List<Tasks> Tasks { get; private set; } = new List<Tasks>();
 }

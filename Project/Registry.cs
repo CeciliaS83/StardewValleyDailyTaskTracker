@@ -9,7 +9,7 @@ public class Registry : IListed
 
     public StardewValley NewItem(string name) => new StardewValley(name);
     
-    public Task NewDetail(string name) => new Task(name);
+    public Tasks NewDetail(string name) => new Tasks(name);
 
     public void Add(StardewValley task)
     {
@@ -67,15 +67,15 @@ public class Registry : IListed
 
     public void Save(ProjectContext db)
     {
-        foreach (StardewValley task in _tasks)
+        foreach (StardewValley tasks in _tasks)
         {
-            if (task.Id == 0)
+            if (tasks.Id == 0)
             {
-                db.Task.Add(task);
+                db.Task.Add(tasks);
             }
             else
             {
-                db.Task.Update(task);
+                db.Task.Update(tasks);
             }
         }
         
@@ -104,6 +104,29 @@ public class Registry : IListed
         _tasks.AddRange(loaded);
     }
     
+    public int Import(string path)
+    {
+        string json = File.ReadAllText(path);
+        List<string> names = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+
+        foreach (string name in names)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new InvalidDataException("The file has a blank name in it.");
+            }
+        }
+
+        int before = Count;
+
+        foreach (string name in names)
+        {
+            Add(NewItem(name));
+        }
+
+        return Count - before;
+    }
+
     public List<string> WithDetails(ProjectContext db)
     {
         return db.Task.Where(item => item.Tasks.Any()).OrderBy(item => item.Name).Select(item => item.Name).ToList();

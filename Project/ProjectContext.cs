@@ -6,9 +6,8 @@ using Microsoft.Extensions.Logging;
 
 public class ProjectContext : DbContext
 {
-    [NotMapped]
     public DbSet<StardewValley> Task { get; private set; }
-    public DbSet<Task> Tasks { get; set; }
+    public DbSet<Tasks> Tasks { get; set; }
 
     public ProjectContext()
     {
@@ -31,7 +30,5 @@ public class ProjectContext : DbContext
             .Build();
 
         options.UseSqlServer(config["ConnectionStrings:Project"]);
-
-        options.LogTo(Console.WriteLine, LogLevel.Information, DbContextLoggerOptions.None);
     }
 }
