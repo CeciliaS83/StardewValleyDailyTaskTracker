@@ -46,11 +46,24 @@ public class StardewValley : IListed
     {
         Name = name;
         Note = "";
+        Added = DateTime.Now;
     }
 
     public string Kind => "Tasks";
 
-    public string Line() => $"{Name} - Completed {TimesCompleted} times";
+    public string Line() => $"{Name} - Completed {TimesCompleted} times  - added {AddedOn()}";
 
     public List<Tasks> Tasks { get; private set; } = new List<Tasks>();
+
+    public DateTime? Added { get; private set; }
+
+    public string AddedOn()
+    {
+        if (Added == null)
+        {
+            return "-";
+        }
+
+        return Added.Value.ToString("yyyy-MM-dd");
+    }
 }
