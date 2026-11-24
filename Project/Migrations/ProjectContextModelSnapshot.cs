@@ -43,6 +43,9 @@ namespace Project.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
                     b.Property<int>("TimesCompleted")
                         .HasColumnType("int");
 

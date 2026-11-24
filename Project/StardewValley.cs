@@ -51,7 +51,7 @@ public class StardewValley : IListed
 
     public string Kind => "Tasks";
 
-    public string Line() => $"{Name} - Completed {TimesCompleted} times  - added {AddedOn()}";
+    public string Line() => $"{Name} - Completed {TimesCompleted} times  - added {AddedOn()}, {Stars} stars";
 
     public List<Tasks> Tasks { get; private set; } = new List<Tasks>();
 
@@ -66,4 +66,6 @@ public class StardewValley : IListed
 
         return Added.Value.ToString("yyyy-MM-dd");
     }
+
+        public int Stars { get; set; } = 3;
 }

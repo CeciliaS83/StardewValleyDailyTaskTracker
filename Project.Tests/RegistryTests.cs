@@ -1,5 +1,8 @@
 namespace Project.Tests;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Project.Migrations;
 
 public class RegistryTests
 {
@@ -163,5 +166,17 @@ public class RegistryTests
         Registry registry = new Registry();
         Assert.Throws<InvalidDataException>(() => registry.Import(path));
         Assert.Equal(0, registry.Count);
+    }
+
+    [Fact]
+    public void Week14_TheOldRecordsGetThreeStars()
+    {
+        Migration migration = new EveryRecordGetsStars();
+
+        AddColumnOperation stars = migration.UpOperations
+            .OfType<AddColumnOperation>()
+            .Single(op => op.Name == "Stars");
+
+        Assert.Equal(3, stars.DefaultValue);
     }
 }
