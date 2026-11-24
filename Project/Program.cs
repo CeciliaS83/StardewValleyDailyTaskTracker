@@ -1,6 +1,15 @@
-﻿var registry = new Registry();
+﻿using Microsoft.EntityFrameworkCore;
+
+var registry = new Registry();
 
 ProjectContext db = new ProjectContext();
+
+if (!db.Database.CanConnect())
+{
+    Console.WriteLine("The program can't reach its database, so it stopped here.");
+    Console.WriteLine("Check your network and your connection string, then run it again.");
+    return;
+}
 
 registry.Add(registry.NewItem("Farm"));
 registry.Add(registry.NewItem("Forage"));
@@ -42,7 +51,18 @@ if (withDetails != null)
     Console.WriteLine($"{withDetails.Tasks.Count} details on file for that record.");
 }
 RegistryDesk.Import(registry);
-registry.Save(db);
+
+try
+{
+    registry.Save(db);
+}
+catch (DbUpdateException)
+{
+    Console.WriteLine("Nothing was saved.");
+    Console.WriteLine("Run the program again.");
+    return;
+}
+
 Console.WriteLine($"With details: {string.Join(", ", registry.WithDetails(db))}");
 Console.WriteLine($"{registry.Count} on file, saved to the database.");
 
